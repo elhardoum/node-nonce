@@ -2,8 +2,9 @@
 
 Authenticate your web forms and endpoints easily and tokenize your actions to prevent CSRF.
 
-*I am still working on this.*
-
+```bash
+npm install node-nonce --save
+```
 
 ```javascript
 const nonce = require('node-nonce').config({
@@ -19,3 +20,5 @@ const nonce_token = nonce.create( 'some-action' );
 // verify a nonce
 nonce.verify( nonce_token, 'some-action' );
 ```
+
+*I am still working on this.*
