@@ -83,7 +83,7 @@ describe('node-nonce', () => {
     it('tests the nonce creation', () =>
     {
         let hash = nonce.create('test', 1, {
-            csrf_ttl: 1,
+            CSRF_ttl: 1,
             nonce_hash_max_length: 10
         })
 
@@ -97,7 +97,7 @@ describe('node-nonce', () => {
     it('tests the nonce verification', () =>
     {
         let hash = nonce.create('login-nonce', 1, {
-            csrf_ttl: 1 // override the default CSRF expiration seconds
+            CSRF_ttl: 1 // override the default CSRF expiration seconds
         })
 
         // assert verification against the same action

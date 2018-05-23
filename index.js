@@ -13,8 +13,8 @@ module.exports = {
     DEFAULT_CONFIG: {
         cookie_path: '/',
 
-        csrf_ttl: 86400, // 1 day
-        csrf_token_name: 'CSRF',
+        CSRF_ttl: 86400, // 1 day
+        CSRF_token_name: 'CSRF',
 
         nonce_default_ttl: 1800, // 30 min
         nonce_hash_key_prefix: 'nn',
@@ -27,7 +27,7 @@ module.exports = {
     options: {},
 
     // private variables
-    _csrf_token: null,
+    _CSRF_token: null,
     _doing_verification: null,
 
     // custom config
@@ -119,21 +119,21 @@ module.exports = {
     {
         options = options || this.options;
 
-        if ( ! this._csrf_token ) {
-            if ( ! this.getCookie( options.csrf_token_name ) ) {
+        if ( ! this._CSRF_token ) {
+            if ( ! this.getCookie( options.CSRF_token_name ) ) {
                 const hash = this.createHash(Math.random().toString(36).substring(2, 15)
                     + Math.random().toString(36).substring(2, 15)
                     + options.secret);
 
-                this.setCookie( options.csrf_token_name, hash, options.csrf_ttl, options.cookie_path );
+                this.setCookie( options.CSRF_token_name, hash, options.CSRF_ttl, options.cookie_path );
 
-                this._csrf_token = hash;
+                this._CSRF_token = hash;
             } else {
-                this._csrf_token = this.getCookie( options.csrf_token_name );
+                this._CSRF_token = this.getCookie( options.CSRF_token_name );
             }
         }
 
-        return this._csrf_token;
+        return this._CSRF_token;
     },
 
     setCookie: function(name, value, expire_seconds, path) {
