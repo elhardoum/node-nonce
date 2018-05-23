@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true})) 
 
-const nonce = require('./index.js').config({
+const nonce = require('./../index.js').config({
     secret: 'eiwer9weriorl2342i323i4e',
     cookie_path: '/'
 });
