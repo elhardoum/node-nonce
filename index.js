@@ -83,7 +83,7 @@ module.exports = {
 
         const options = this.extendConfig(config||{}, this.options);
 
-        const CSRF_TOKEN = this.getOrCreateCSRFToken();
+        const CSRF_TOKEN = this.getOrCreateCSRFToken(options);
 
         let hash = this.createHash(action + CSRF_TOKEN, options);
 
@@ -115,21 +115,21 @@ module.exports = {
            .digest('hex');
     },
 
-    getOrCreateCSRFToken: function()
+    getOrCreateCSRFToken: function(options)
     {
+        options = options || this.options;
+
         if ( ! this._csrf_token ) {
-            if ( ! this.getCookie( this.options.csrf_token_name ) ) {
+            if ( ! this.getCookie( options.csrf_token_name ) ) {
                 const hash = this.createHash(Math.random().toString(36).substring(2, 15)
                     + Math.random().toString(36).substring(2, 15)
-                    + this.options.secret);
+                    + options.secret);
 
-                this.setCookie( this.options.csrf_token_name, hash, this.options.csrf_ttl, this.options.cookie_path );
-
-                console.log( 'Created CSRF token' );
+                this.setCookie( options.csrf_token_name, hash, options.csrf_ttl, options.cookie_path );
 
                 this._csrf_token = hash;
             } else {
-                this._csrf_token = this.getCookie( this.options.csrf_token_name );
+                this._csrf_token = this.getCookie( options.csrf_token_name );
             }
         }
 

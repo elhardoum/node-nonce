@@ -14,7 +14,7 @@ const nonce = require('node-nonce').config({
 nonce.init( req, res ); // request and response (HTTP)
 
 // create a nonce
-let nonce_token = nonce.create( 'some-action' );
+const nonce_token = nonce.create( 'some-action' );
 
 // verify a nonce
 nonce.verify( nonce_token, 'some-action' );

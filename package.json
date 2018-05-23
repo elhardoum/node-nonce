@@ -16,7 +16,11 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "mocha tests/*.js"
+  },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
 }
