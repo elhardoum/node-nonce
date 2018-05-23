@@ -40,7 +40,7 @@ describe('node-nonce', () => {
         // then assert it was set
         assert( 11 == fakeCookies.get( 'test' ) )
 
-        // now wait for it to expire and asset expiry success
+        // now wait for it to expire and assert expiry success
         setTimeout(() => {
             assert( ! fakeCookies.get( 'test' ) )
             done()
@@ -86,8 +86,7 @@ describe('node-nonce', () => {
     it('tests the nonce verification', () =>
     {
         let hash = nonce.create('login-nonce', 1, {
-            csrf_ttl: 1, // override the default CSRF expiration seconds
-            nonce_hash_max_length: 10
+            csrf_ttl: 1 // override the default CSRF expiration seconds
         })
 
         // assert verification against the same action
