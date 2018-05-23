@@ -9,6 +9,9 @@ const fakeCookies = {
     // cookie jar
     all: {},
 
+    // timeouts
+    timeout: {},
+
     // get a cookie
     get: function(name)
     {
@@ -21,9 +24,16 @@ const fakeCookies = {
         this.all[ name ] = value;
 
         if ( expires_seconds ) {
-            setTimeout(() => delete this.all[ name ], parseFloat(expires_seconds) * 1000)
+            ! this.timeout[ name ] || clearTimeout( this.timeout[ name ] )
+            this.timeout[ name ] = setTimeout(() => this.unset(name), parseFloat(expires_seconds) * 1000)
         }
-    }
+    },
+
+    // delete a cookie
+    unset: function(name)
+    {
+        delete this.all[ name ]
+    }    
 }
 
 describe('node-nonce', () => {
@@ -35,6 +45,7 @@ describe('node-nonce', () => {
     it('tests fake cookies', (done) =>
     {
         // first set a cookie
+        fakeCookies.set( 'test', 11, 0.1 )
         fakeCookies.set( 'test', 11, 0.1 )
 
         // then assert it was set
